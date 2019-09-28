@@ -1,17 +1,28 @@
-import urllib.request
-import json
+import requests
 
-USER_AGENT  = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.12; rv:60.0) Gecko/20100101 Firefox/60.0'}
-URL         = "https://stats.nba.com/stats/leagueLeaders?LeagueID=00&PerMode=PerGame&Scope=S&Season=2018-19&SeasonType=Regular+Season&StatCategory=PTS"
+#URL = "https://stats.nba.com/stats/leagueLeaders?LeagueID=00&PerMode=PerGame&Scope=S&Season=2018-19&SeasonType=Regular+Season&StatCategory=PTS"
+URL        = "https://stats.nba.com/stats/leaguedashteamstats?Conference=&DateFrom=&DateTo=&Division=&GameScope=&GameSegment=&LastNGames=0&LeagueID=00&Location=&MeasureType=Base&Month=0&OpponentTeamID=0&Outcome=&PORound=0&PaceAdjust=N&PerMode=PerGame&Period=0&PlayerExperience=&PlayerPosition=&PlusMinus=N&Rank=N&Season=2018-19&SeasonSegment=&SeasonType=Regular+Season&ShotClockRange=&StarterBench=&TeamID=0&VsConference=&VsDivision="
+params=""
 
-req = urllib.request.Request(
-    url     = URL,
-    headers = USER_AGENT
+response = requests.get(
+    url = URL,
+    params = params,
+    headers = {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.3440.106 Safari/537.36'
+    }
 )
 
-with urllib.request.urlopen(req) as raw_stats:
-    player_stats_json = json.loads(raw_stats.read())
+http_response = response.content.decode(response.encoding)
+
+import json
+       
+#with urllib.request.urlopen(req) as raw_stats:
+stats_json = json.loads(http_response)
 
 with open("2018-2019.txt", 'w') as out:
-    out.write(json.dumps(player_stats_json))
+    out.write(json.dumps(stats_json))
+
+
+
+
 
