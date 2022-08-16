@@ -14,13 +14,19 @@ def plt_draw(ax=None, color='black', lw=2, outer_lines=False):
     ax.add_patch(rectangle)
 
     
-    x1, y1 = [-1, 12], [1, 4]
-    x2, y2 = [1, 10], [3, 2]
+    x = [-1, 12]
+    y = [1, 5]
 
-    plt.plot(x1, y1, x2, y2, marker='o')
+    plt.scatter(x, y, marker='o')
+
+    ax.set_xlim(-15, 15)
+    ax.set_ylim(-10, 20)
+    ax.set_aspect('equal')
 
     plt.show()
     return plt
 
 p = plt_draw()
 p.show()
+
+
